@@ -1,0 +1,585 @@
+<!doctype html>
+<!--
+  =====================================================================
+  PÀGINA PERSONAL — Professor de Cicles Formatius d'Informàtica
+  IES Dr. Lluís Simarro (Xàtiva)
+  ---------------------------------------------------------------------
+  Fitxer únic i autocontingut. Per a modificar-lo:
+   · Textos: busca els comentaris "EDITA" al llarg del fitxer.
+   · Enllaços: tots els href="#" marcats amb "EDITA" són provisionals.
+   · Colors: secció <script> de configuració de Tailwind (paleta "brand").
+   · Icones: https://fontawesome.com/search?o=r&m=free
+  =====================================================================
+-->
+<html lang="ca" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- EDITA: títol de la pestanya i descripció per a cercadors -->
+  <title>Enric Giménez · Professor d'Informàtica</title>
+  <meta name="description" content="Pàgina personal d'Enric Giménez, professor de cicles formatius de la família d'Informàtica i Comunicacions a l'IES Dr. Lluís Simarro de Xàtiva.">
+
+  <!-- Tipografies: Inter (text) i JetBrains Mono (detalls tecnològics) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Icones: Font Awesome 6 (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Configuració de Tailwind: mode fosc per classe i paleta corporativa
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            // EDITA: canvia aquests valors per a modificar el color principal
+            brand: {
+              50: '#eef4ff', 100: '#dbe6ff', 200: '#bfd3ff', 300: '#93b4ff',
+              400: '#6090fb', 500: '#3b6ef6', 600: '#2553eb', 700: '#1d40d8',
+              800: '#1e36af', 900: '#1e338a',
+            },
+            accent: { 400: '#22d3ee', 500: '#06b6d4' }, // accent viu (cian)
+          },
+        },
+      },
+    };
+
+    // Aplica el tema guardat (o el del sistema) abans de pintar la pàgina
+    try {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) document.documentElement.classList.add('dark');
+    } catch (e) { /* sense localStorage: es queda el tema clar */ }
+  </script>
+
+  <style>
+    /* Estils propis que complementen Tailwind */
+    body { -webkit-font-smoothing: antialiased; }
+
+    /* Que el menú fix no tape el títol de cada secció en navegar */
+    section[id] { scroll-margin-top: 4rem; }
+
+    /* Fons amb quadrícula subtil per a la secció Hero */
+    .grid-bg {
+      background-image:
+        linear-gradient(to right, rgb(100 116 139 / 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(100 116 139 / 0.12) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+    }
+
+    /* Animació d'aparició en fer scroll */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* Enllaç actiu del menú */
+    .nav-link.active { color: rgb(37 83 235); }
+    .dark .nav-link.active { color: rgb(96 144 251); }
+
+    /* Cursor parpellejant del terminal */
+    .cursor::after { content: '▋'; animation: blink 1s steps(1) infinite; margin-left: 2px; }
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 font-sans">
+
+  <!-- Enllaç d'accessibilitat per a saltar directament al contingut -->
+  <a href="#inici" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-brand-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">Salta al contingut</a>
+
+  <!-- =================================================================
+       1. CAPÇALERA / NAVBAR FIX
+       ================================================================= -->
+  <header id="navbar" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+    <nav class="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Navegació principal">
+      <!-- Marca personal — EDITA: inicials i nom -->
+      <a href="#inici" class="flex items-center gap-2.5 font-bold text-slate-900 dark:text-white">
+        <span class="grid place-items-center w-9 h-9 rounded-lg bg-gradient-to-br from-brand-600 to-accent-500 text-white font-mono text-sm">EG</span>
+        <span class="hidden sm:inline">Enric Giménez</span>
+      </a>
+
+      <!-- Enllaços d'escriptori -->
+      <ul class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <li><a href="#inici" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Inici</a></li>
+        <li><a href="#docencia" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Docència</a></li>
+        <li><a href="#projectes" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Projectes</a></li>
+        <li><a href="#recursos" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Recursos / Alumnat</a></li>
+        <li><a href="#contacte" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Contacte</a></li>
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <!-- Botó canvi de tema clar/fosc -->
+        <button id="theme-toggle" type="button" aria-label="Canvia entre tema clar i fosc"
+          class="w-10 h-10 grid place-items-center rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition">
+          <i class="fa-solid fa-moon dark:hidden"></i>
+          <i class="fa-solid fa-sun hidden dark:inline"></i>
+        </button>
+        <!-- Botó menú mòbil -->
+        <button id="menu-toggle" type="button" aria-label="Obri el menú" aria-expanded="false" aria-controls="mobile-menu"
+          class="md:hidden w-10 h-10 grid place-items-center rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menú desplegable per a mòbil -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur">
+      <ul class="px-4 py-3 flex flex-col text-base font-medium">
+        <li><a href="#inici" class="block py-2.5">Inici</a></li>
+        <li><a href="#docencia" class="block py-2.5">Docència</a></li>
+        <li><a href="#projectes" class="block py-2.5">Projectes</a></li>
+        <li><a href="#recursos" class="block py-2.5">Recursos / Alumnat</a></li>
+        <li><a href="#contacte" class="block py-2.5">Contacte</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- =================================================================
+         2. SECCIÓ HERO (INICI)
+         ================================================================= -->
+    <section id="inici" class="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+      <div class="absolute inset-0 grid-bg pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute -top-24 right-0 w-96 h-96 bg-brand-500/20 dark:bg-brand-500/25 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+      <div class="relative mx-auto max-w-6xl px-4 sm:px-6 grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center">
+        <div>
+          <!-- Etiqueta superior -->
+          <p class="inline-flex items-center gap-2 rounded-full border border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-900/30 px-3 py-1 text-xs font-semibold text-brand-700 dark:text-brand-300">
+            <i class="fa-solid fa-school"></i> IES Dr. Lluís Simarro · Xàtiva
+          </p>
+
+          <!-- EDITA: títol principal -->
+          <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+            Professor de Cicles Formatius en
+            <span class="bg-gradient-to-r from-brand-600 to-accent-500 bg-clip-text text-transparent">Informàtica</span>
+          </h1>
+
+          <!-- EDITA: lema / descripció -->
+          <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl">
+            Docent de secundària i FP de la família d'Informàtica i Comunicacions.
+            Crec en una formació <strong class="text-slate-800 dark:text-slate-200">pràctica, actual i connectada amb l'empresa</strong>:
+            aprendre a programar programant, i preparar l'alumnat per al món professional real.
+          </p>
+
+          <!-- Botons d'acció (CTA) -->
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#contacte" class="inline-flex items-center gap-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 font-semibold shadow-lg shadow-brand-600/25 transition">
+              <i class="fa-solid fa-envelope"></i> Contacta amb mi
+            </a>
+            <!-- EDITA: URL del teu Moodle / Aules -->
+            <a href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-500 dark:hover:border-brand-500 px-6 py-3 font-semibold text-slate-800 dark:text-slate-100 transition">
+              <i class="fa-solid fa-graduation-cap"></i> Accés a Moodle / Materials
+            </a>
+          </div>
+        </div>
+
+        <!-- Targeta decorativa tipus terminal -->
+        <div class="reveal hidden sm:block rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100 shadow-2xl overflow-hidden" aria-hidden="true">
+          <div class="flex items-center gap-2 px-4 py-3 bg-slate-800/80">
+            <span class="w-3 h-3 rounded-full bg-red-400"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+            <span class="w-3 h-3 rounded-full bg-green-400"></span>
+            <span class="ml-3 text-xs text-slate-400 font-mono">professor.java</span>
+          </div>
+          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code><span class="text-accent-400">public class</span> <span class="text-yellow-300">Professor</span> {
+  <span class="text-slate-500">// IES Dr. Lluís Simarro</span>
+  String centre = <span class="text-green-300">"Xàtiva"</span>;
+  String[] cicles = {
+    <span class="text-green-300">"DAM"</span>, <span class="text-green-300">"DAW"</span>, <span class="text-green-300">"SMX"</span>
+  };
+
+  <span class="text-accent-400">void</span> <span class="text-brand-300">ensenyar</span>() {
+    aprendre(<span class="text-green-300">"fent"</span>);
+  }
+}
+<span class="text-slate-500">$</span> <span class="cursor"></span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         3. SECCIÓ DOCÈNCIA / CICLES FORMATIUS
+         ================================================================= -->
+    <section id="docencia" class="py-20 sm:py-24 bg-white dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <header class="max-w-2xl reveal">
+          <p class="font-mono text-sm text-brand-600 dark:text-brand-400">01 · Docència</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Cicles i mòduls que impartisc</h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-400">Formació Professional de la família d'Informàtica i Comunicacions, amb un enfocament pràctic i orientat a projectes.</p>
+        </header>
+
+        <!-- EDITA: afig, lleva o modifica targetes de mòduls.
+             Cada targeta: icona, cicle (etiqueta), nom del mòdul i descripció. -->
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-code"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM · DAW</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Programació</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Fonaments de programació orientada a objectes, estructures de dades i bones pràctiques amb Java.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-database"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Accés a Dades</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Persistència en fitxers, JDBC, ORM (Hibernate/JPA) i bases de dades relacionals i NoSQL.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-mobile-screen"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Programació Multimèdia i Dispositius Mòbils</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Desenvolupament d'aplicacions Android i multiplataforma, interfícies i accés a sensors.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-window-maximize"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Desenvolupament d'Interfícies</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Disseny d'interfícies d'usuari, usabilitat, accessibilitat i generació d'informes.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-network-wired"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">SMX</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Sistemes i Xarxes</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Muntatge d'equips, sistemes operatius, xarxes locals i serveis en xarxa.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-diagram-project"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM · DAW</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Projecte Intermodular</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Tutorització de projectes finals que integren els coneixements del cicle en un producte real.</p>
+          </article>
+        </div>
+
+        <!-- Bloc de coordinació FCT / FP Dual — EDITA el text -->
+        <div class="reveal mt-12 rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 dark:from-brand-800 dark:to-slate-900 text-white p-8 sm:p-10 grid md:grid-cols-[auto_1fr] gap-6 items-start">
+          <div class="w-14 h-14 grid place-items-center rounded-2xl bg-white/15 text-2xl"><i class="fa-solid fa-handshake"></i></div>
+          <div>
+            <h3 class="text-2xl font-bold">Coordinació d'estades a l'empresa (FCT / FP Dual)</h3>
+            <p class="mt-3 text-brand-100 max-w-3xl">
+              Coordine les estades de formació en empresa de l'alumnat i el seguiment de la FP Dual,
+              treballant colze a colze amb el teixit empresarial de la Costera i comarques veïnes.
+              Si la teua empresa vol acollir alumnat en pràctiques, parlem-ne.
+            </p>
+            <ul class="mt-6 grid sm:grid-cols-3 gap-4 text-sm">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-building text-accent-400"></i> Conveni amb empreses</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-user-check text-accent-400"></i> Seguiment personalitzat</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-briefcase text-accent-400"></i> Inserció laboral</li>
+            </ul>
+            <a href="#contacte" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-white text-brand-800 px-5 py-2.5 font-semibold hover:bg-brand-50 transition">
+              Col·labora amb nosaltres <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         4. SECCIÓ PROJECTES / INNOVACIÓ EDUCATIVA
+         ================================================================= -->
+    <section id="projectes" class="py-20 sm:py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <header class="max-w-2xl reveal">
+          <p class="font-mono text-sm text-brand-600 dark:text-brand-400">02 · Projectes</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Innovació educativa</h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-400">Aplicacions, eines i recursos que he creat per a fer l'aula més interactiva.</p>
+        </header>
+
+        <!-- EDITA: projectes. Canvia títol, descripció, etiquetes i enllaços (href="#"). -->
+        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+          <article class="reveal flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden hover:shadow-xl hover:shadow-brand-600/10 transition">
+            <div class="h-32 bg-gradient-to-br from-brand-500 to-accent-500 grid place-items-center text-white text-4xl"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Joc de repàs de programació</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Aplicació web amb reptes i preguntes per a repassar conceptes de Java de manera gamificada.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">JavaScript</span>
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">Gamificació</span>
+              </div>
+              <div class="mt-5 flex gap-4 text-sm font-semibold">
+                <a href="#" class="text-brand-600 dark:text-brand-400 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Demo</a>
+                <a href="#" class="text-slate-600 dark:text-slate-300 hover:underline"><i class="fa-brands fa-github mr-1"></i>Codi</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden hover:shadow-xl hover:shadow-brand-600/10 transition">
+            <div class="h-32 bg-gradient-to-br from-indigo-500 to-brand-600 grid place-items-center text-white text-4xl"><i class="fa-solid fa-robot"></i></div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">IA a l'aula d'FP</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Guies i activitats per a utilitzar assistents d'IA de forma crítica i responsable en el desenvolupament de programari.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">IA</span>
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">Metodologia</span>
+              </div>
+              <div class="mt-5 flex gap-4 text-sm font-semibold">
+                <a href="#" class="text-brand-600 dark:text-brand-400 hover:underline"><i class="fa-solid fa-book-open mr-1"></i>Materials</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden hover:shadow-xl hover:shadow-brand-600/10 transition">
+            <div class="h-32 bg-gradient-to-br from-cyan-500 to-teal-500 grid place-items-center text-white text-4xl"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Plantilles de documents docents</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Plantilles unificades per a apunts i pràctiques amb llicència oberta Creative Commons.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">REA</span>
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">CC BY-NC-SA</span>
+              </div>
+              <div class="mt-5 flex gap-4 text-sm font-semibold">
+                <a href="#" class="text-brand-600 dark:text-brand-400 hover:underline"><i class="fa-solid fa-download mr-1"></i>Descarrega</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         5. SECCIÓ RECURSOS PER A L'ALUMNAT
+         ================================================================= -->
+    <section id="recursos" class="py-20 sm:py-24 bg-white dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <header class="max-w-2xl reveal">
+          <p class="font-mono text-sm text-brand-600 dark:text-brand-400">03 · Alumnat</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Recursos per a l'alumnat</h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-400">Tot el que necessites per a seguir el curs: enllaços, tutories i consells.</p>
+        </header>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+
+          <!-- Enllaços útils — EDITA les URL -->
+          <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6">
+            <h3 class="flex items-center gap-2 font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-link text-brand-500"></i> Enllaços útils</h3>
+            <ul class="mt-4 space-y-1 text-sm">
+              <li><a href="#" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-solid fa-graduation-cap w-5 text-slate-400"></i> Aules / Moodle</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+              <li><a href="https://itaca.gva.es" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-solid fa-id-card w-5 text-slate-400"></i> Web Família / ITACA</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+              <li><a href="https://dev.java/learn/" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-brands fa-java w-5 text-slate-400"></i> Documentació de Java</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+              <li><a href="https://git-scm.com/book/es/v2" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-brands fa-git-alt w-5 text-slate-400"></i> Llibre de Git</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+              <li><a href="https://developer.mozilla.org/ca/" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-brands fa-firefox-browser w-5 text-slate-400"></i> MDN Web Docs</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+            </ul>
+          </div>
+
+          <!-- Horari de tutoria — EDITA dies i hores -->
+          <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6">
+            <h3 class="flex items-center gap-2 font-semibold text-slate-900 dark:text-white"><i class="fa-regular fa-clock text-brand-500"></i> Horari de tutoria</h3>
+            <dl class="mt-4 divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+              <div class="flex justify-between py-3"><dt class="text-slate-600 dark:text-slate-400">Dilluns</dt><dd class="font-mono font-semibold">11:15 – 12:10</dd></div>
+              <div class="flex justify-between py-3"><dt class="text-slate-600 dark:text-slate-400">Dimecres</dt><dd class="font-mono font-semibold">13:05 – 14:00</dd></div>
+              <div class="flex justify-between py-3"><dt class="text-slate-600 dark:text-slate-400">Famílies (cita prèvia)</dt><dd class="font-mono font-semibold">Dijous 16:00</dd></div>
+            </dl>
+            <p class="mt-4 text-xs text-slate-500 dark:text-slate-400"><i class="fa-solid fa-circle-info mr-1"></i> Demana cita per correu o per missatgeria d'Aules.</p>
+          </div>
+
+          <!-- Consells d'estudi — EDITA -->
+          <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6">
+            <h3 class="flex items-center gap-2 font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-lightbulb text-brand-500"></i> Consells d'estudi</h3>
+            <ul class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex gap-3"><i class="fa-solid fa-keyboard text-accent-500 mt-1"></i> Programa cada dia, encara que siguen 20 minuts.</li>
+              <li class="flex gap-3"><i class="fa-solid fa-bug text-accent-500 mt-1"></i> Llig els errors amb calma: et diuen exactament què passa.</li>
+              <li class="flex gap-3"><i class="fa-brands fa-git-alt text-accent-500 mt-1"></i> Usa Git des del primer dia i fes commits menuts.</li>
+              <li class="flex gap-3"><i class="fa-solid fa-users text-accent-500 mt-1"></i> Explica el codi a un company: és la millor forma d'aprendre.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SECCIÓ CONTACTE
+         ================================================================= -->
+    <section id="contacte" class="py-20 sm:py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 sm:p-12 grid lg:grid-cols-2 gap-10">
+          <div>
+            <p class="font-mono text-sm text-brand-600 dark:text-brand-400">04 · Contacte</p>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Parlem?</h2>
+            <p class="mt-4 text-slate-600 dark:text-slate-400">Alumnat, famílies, empreses o altres docents: estaré encantat de respondre't.</p>
+
+            <!-- EDITA: dades de contacte -->
+            <ul class="mt-8 space-y-4">
+              <li class="flex items-center gap-4">
+                <span class="w-11 h-11 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400"><i class="fa-solid fa-envelope"></i></span>
+                <a href="mailto:correu@exemple.com" class="font-medium hover:text-brand-600 dark:hover:text-brand-400">correu@exemple.com</a>
+              </li>
+              <li class="flex items-center gap-4">
+                <span class="w-11 h-11 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400"><i class="fa-solid fa-location-dot"></i></span>
+                <span class="font-medium">IES Dr. Lluís Simarro · Xàtiva (València)</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Formulari: obri el client de correu amb el missatge preparat (sense servidor) -->
+          <form id="contact-form" class="space-y-4" novalidate>
+            <div>
+              <label for="nom" class="block text-sm font-medium mb-1.5">Nom</label>
+              <input id="nom" name="nom" type="text" required autocomplete="name"
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label for="assumpte" class="block text-sm font-medium mb-1.5">Assumpte</label>
+              <select id="assumpte" name="assumpte"
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option>Consulta d'alumnat</option>
+                <option>Família</option>
+                <option>Empresa (FCT / FP Dual)</option>
+                <option>Altres</option>
+              </select>
+            </div>
+            <div>
+              <label for="missatge" class="block text-sm font-medium mb-1.5">Missatge</label>
+              <textarea id="missatge" name="missatge" rows="4" required
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+            </div>
+            <p id="form-error" class="hidden text-sm text-red-600 dark:text-red-400" role="alert">Omple el nom i el missatge, per favor.</p>
+            <button type="submit" class="w-full inline-flex justify-center items-center gap-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 font-semibold transition">
+              <i class="fa-solid fa-paper-plane"></i> Envia el missatge
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =================================================================
+       6. PEU DE PÀGINA (FOOTER)
+       ================================================================= -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 py-12 grid gap-10 md:grid-cols-3">
+      <!-- Informació institucional — EDITA si cal -->
+      <div>
+        <h3 class="font-semibold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-solid fa-school text-brand-500"></i> IES Dr. Lluís Simarro</h3>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Centre públic d'ESO, Batxillerat i Formació Professional de la Conselleria d'Educació.<br>Xàtiva (València)</p>
+        <!-- EDITA: URL oficial de la web del centre -->
+        <a href="#" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline">Web del centre <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+      </div>
+
+      <!-- Xarxes professionals — EDITA les URL -->
+      <div>
+        <h3 class="font-semibold text-slate-900 dark:text-white">Xarxes professionals</h3>
+        <div class="mt-3 flex gap-3">
+          <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-11 h-11 grid place-items-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:text-brand-600 hover:border-brand-500 transition"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" target="_blank" rel="noopener" aria-label="GitHub" class="w-11 h-11 grid place-items-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:text-brand-600 hover:border-brand-500 transition"><i class="fa-brands fa-github"></i></a>
+          <a href="mailto:correu@exemple.com" aria-label="Correu electrònic" class="w-11 h-11 grid place-items-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:text-brand-600 hover:border-brand-500 transition"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <!-- Llicència i avís legal -->
+      <div>
+        <h3 class="font-semibold text-slate-900 dark:text-white">Llicència</h3>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">
+          <i class="fa-brands fa-creative-commons"></i> <i class="fa-brands fa-creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc-eu"></i> <i class="fa-brands fa-creative-commons-sa"></i><br>
+          Els continguts d'aquesta web es publiquen sota llicència
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener" class="text-brand-600 dark:text-brand-400 hover:underline">CC BY-NC-SA 4.0</a>.
+        </p>
+        <a href="#" class="mt-2 inline-block text-sm text-slate-600 dark:text-slate-400 hover:underline">Avís legal i privacitat</a>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 dark:border-slate-800 py-5 text-center text-xs text-slate-500">
+      © <span id="any"></span> Enric Giménez · Fet amb <i class="fa-solid fa-heart text-red-500"></i> i molt de codi
+    </div>
+  </footer>
+
+  <!-- Botó per a tornar a dalt -->
+  <a href="#inici" id="to-top" aria-label="Torna a dalt"
+     class="fixed bottom-5 right-5 z-40 w-11 h-11 grid place-items-center rounded-full bg-brand-600 text-white shadow-lg opacity-0 pointer-events-none transition">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+  <!-- =================================================================
+       JAVASCRIPT
+       ================================================================= -->
+  <script>
+    // EDITA: correu on arribaran els missatges del formulari
+    const CORREU_CONTACTE = 'correu@exemple.com';
+
+    // Any actual al peu de pàgina
+    document.getElementById('any').textContent = new Date().getFullYear();
+
+    // --- Canvi de tema clar/fosc ---
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const dark = document.documentElement.classList.toggle('dark');
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    });
+
+    // --- Menú mòbil ---
+    const menuBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const setMenu = (open) => {
+      mobileMenu.classList.toggle('hidden', !open);
+      menuBtn.setAttribute('aria-expanded', open);
+      menuBtn.innerHTML = open ? '<i class="fa-solid fa-xmark text-lg"></i>' : '<i class="fa-solid fa-bars text-lg"></i>';
+    };
+    menuBtn.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+    // --- Navbar: fons en fer scroll + botó "torna a dalt" ---
+    const navbar = document.getElementById('navbar');
+    const toTop = document.getElementById('to-top');
+    const onScroll = () => {
+      const scrolled = window.scrollY > 20;
+      navbar.classList.toggle('bg-white/85', scrolled);
+      navbar.classList.toggle('dark:bg-slate-950/85', scrolled);
+      navbar.classList.toggle('backdrop-blur', scrolled);
+      navbar.classList.toggle('shadow-sm', scrolled);
+      const show = window.scrollY > 600;
+      toTop.classList.toggle('opacity-0', !show);
+      toTop.classList.toggle('pointer-events-none', !show);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // --- Ressalta l'enllaç de la secció visible ---
+    const links = document.querySelectorAll('.nav-link');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('main section[id]').forEach(s => sectionObserver.observe(s));
+
+    // --- Animació d'aparició dels elements ---
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // --- Formulari de contacte: prepara un correu (no cal servidor) ---
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nom = document.getElementById('nom').value.trim();
+      const assumpte = document.getElementById('assumpte').value;
+      const missatge = document.getElementById('missatge').value.trim();
+      const error = document.getElementById('form-error');
+      if (!nom || !missatge) { error.classList.remove('hidden'); return; }
+      error.classList.add('hidden');
+      const subject = encodeURIComponent(`[Web] ${assumpte} — ${nom}`);
+      const body = encodeURIComponent(`${missatge}\n\n— ${nom}`);
+      window.location.href = `mailto:${CORREU_CONTACTE}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
