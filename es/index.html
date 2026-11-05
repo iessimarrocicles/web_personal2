@@ -1,0 +1,536 @@
+<!doctype html>
+<!--
+  =====================================================================
+  VERSIÓ EN CASTELLÀ de la pàgina personal.
+  La versió en valencià és ../index.html. Si canvies dades (enllaços,
+  correu, horaris...), recorda canviar-les també en l'altra versió.
+  Busca "EDITA" per trobar els textos i enllaços que cal personalitzar.
+  =====================================================================
+-->
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- EDITA: título de la pestaña y descripción -->
+  <title>Enric Giménez · Profesor de Informática</title>
+  <meta name="description" content="Página personal de Enric Giménez, profesor de ciclos formativos de la familia de Informática y Comunicaciones en el IES Dr. Lluís Simarro de Xàtiva.">
+
+  <!-- Favicon (logo EG) -->
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <!-- Versions en altres idiomes -->
+  <link rel="alternate" hreflang="ca" href="../">
+  <link rel="alternate" hreflang="es" href="./">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef4ff', 100: '#dbe6ff', 200: '#bfd3ff', 300: '#93b4ff',
+              400: '#6090fb', 500: '#3b6ef6', 600: '#2553eb', 700: '#1d40d8',
+              800: '#1e36af', 900: '#1e338a',
+            },
+            accent: { 400: '#22d3ee', 500: '#06b6d4' },
+          },
+        },
+      },
+    };
+    try {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) document.documentElement.classList.add('dark');
+    } catch (e) {}
+  </script>
+
+  <style>
+    body { -webkit-font-smoothing: antialiased; }
+    section[id] { scroll-margin-top: 4rem; }
+    .grid-bg {
+      background-image:
+        linear-gradient(to right, rgb(100 116 139 / 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(100 116 139 / 0.12) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+    }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+    .nav-link.active { color: rgb(37 83 235); }
+    .dark .nav-link.active { color: rgb(96 144 251); }
+    .cursor::after { content: '▋'; animation: blink 1s steps(1) infinite; margin-left: 2px; }
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 font-sans">
+
+  <a href="#inicio" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-brand-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">Saltar al contenido</a>
+
+  <!-- ============ 1. NAVBAR ============ -->
+  <header id="navbar" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+    <nav class="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Navegación principal">
+      <a href="#inicio" class="flex items-center gap-2.5 font-bold text-slate-900 dark:text-white">
+        <span class="grid place-items-center w-9 h-9 rounded-lg bg-gradient-to-br from-brand-600 to-accent-500 text-white font-mono text-sm">EG</span>
+        <span class="hidden sm:inline">Enric Giménez</span>
+      </a>
+
+      <ul class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <li><a href="#inicio" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Inicio</a></li>
+        <li><a href="#docencia" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Docencia</a></li>
+        <li><a href="#proyectos" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Proyectos</a></li>
+        <li><a href="#recursos" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Recursos / Alumnado</a></li>
+        <li><a href="#contacto" class="nav-link hover:text-brand-600 dark:hover:text-brand-400 transition">Contacto</a></li>
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <!-- Selector d'idioma: CA / ES (actual) -->
+        <div class="flex items-center rounded-lg border border-slate-300 dark:border-slate-700 text-xs font-semibold overflow-hidden" role="group" aria-label="Idioma">
+          <a href="../" hreflang="ca" lang="ca" class="px-2.5 py-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition" title="Versió en valencià">CA</a>
+          <span class="px-2.5 py-1.5 bg-brand-600 text-white" aria-current="true">ES</span>
+        </div>
+        <button id="theme-toggle" type="button" aria-label="Cambiar entre tema claro y oscuro"
+          class="w-10 h-10 grid place-items-center rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition">
+          <i class="fa-solid fa-moon dark:hidden"></i>
+          <i class="fa-solid fa-sun hidden dark:inline"></i>
+        </button>
+        <button id="menu-toggle" type="button" aria-label="Abrir el menú" aria-expanded="false" aria-controls="mobile-menu"
+          class="md:hidden w-10 h-10 grid place-items-center rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur">
+      <ul class="px-4 py-3 flex flex-col text-base font-medium">
+        <li><a href="#inicio" class="block py-2.5">Inicio</a></li>
+        <li><a href="#docencia" class="block py-2.5">Docencia</a></li>
+        <li><a href="#proyectos" class="block py-2.5">Proyectos</a></li>
+        <li><a href="#recursos" class="block py-2.5">Recursos / Alumnado</a></li>
+        <li><a href="#contacto" class="block py-2.5">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ 2. HERO ============ -->
+    <section id="inicio" class="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+      <div class="absolute inset-0 grid-bg pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute -top-24 right-0 w-96 h-96 bg-brand-500/20 dark:bg-brand-500/25 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+      <div class="relative mx-auto max-w-6xl px-4 sm:px-6 grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center">
+        <div>
+          <p class="inline-flex items-center gap-2 rounded-full border border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-900/30 px-3 py-1 text-xs font-semibold text-brand-700 dark:text-brand-300">
+            <i class="fa-solid fa-school"></i> IES Dr. Lluís Simarro · Xàtiva
+          </p>
+
+          <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+            Profesor de Ciclos Formativos en
+            <span class="bg-gradient-to-r from-brand-600 to-accent-500 bg-clip-text text-transparent">Informática</span>
+          </h1>
+
+          <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl">
+            Docente de secundaria y FP de la familia de Informática y Comunicaciones.
+            Creo en una formación <strong class="text-slate-800 dark:text-slate-200">práctica, actual y conectada con la empresa</strong>:
+            aprender a programar programando y preparar al alumnado para el mundo profesional real.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#contacto" class="inline-flex items-center gap-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 font-semibold shadow-lg shadow-brand-600/25 transition">
+              <i class="fa-solid fa-envelope"></i> Contacta conmigo
+            </a>
+            <!-- EDITA: URL de Moodle / Aules -->
+            <a href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-500 dark:hover:border-brand-500 px-6 py-3 font-semibold text-slate-800 dark:text-slate-100 transition">
+              <i class="fa-solid fa-graduation-cap"></i> Acceso a Moodle / Materiales
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal hidden sm:block rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100 shadow-2xl overflow-hidden" aria-hidden="true">
+          <div class="flex items-center gap-2 px-4 py-3 bg-slate-800/80">
+            <span class="w-3 h-3 rounded-full bg-red-400"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+            <span class="w-3 h-3 rounded-full bg-green-400"></span>
+            <span class="ml-3 text-xs text-slate-400 font-mono">Profesor.java</span>
+          </div>
+          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code><span class="text-accent-400">public class</span> <span class="text-yellow-300">Profesor</span> {
+  <span class="text-slate-500">// IES Dr. Lluís Simarro</span>
+  String centro = <span class="text-green-300">"Xàtiva"</span>;
+  String[] ciclos = {
+    <span class="text-green-300">"DAM"</span>, <span class="text-green-300">"DAW"</span>, <span class="text-green-300">"SMR"</span>
+  };
+
+  <span class="text-accent-400">void</span> <span class="text-brand-300">enseñar</span>() {
+    aprender(<span class="text-green-300">"haciendo"</span>);
+  }
+}
+<span class="text-slate-500">$</span> <span class="cursor"></span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. DOCENCIA ============ -->
+    <section id="docencia" class="py-20 sm:py-24 bg-white dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <header class="max-w-2xl reveal">
+          <p class="font-mono text-sm text-brand-600 dark:text-brand-400">01 · Docencia</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Ciclos y módulos que imparto</h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-400">Formación Profesional de la familia de Informática y Comunicaciones, con un enfoque práctico y orientado a proyectos.</p>
+        </header>
+
+        <!-- EDITA: tarjetas de módulos -->
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-code"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM · DAW</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Programación</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Fundamentos de programación orientada a objetos, estructuras de datos y buenas prácticas con Java.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-database"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Acceso a Datos</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Persistencia en ficheros, JDBC, ORM (Hibernate/JPA) y bases de datos relacionales y NoSQL.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-mobile-screen"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Programación Multimedia y Dispositivos Móviles</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Desarrollo de aplicaciones Android y multiplataforma, interfaces y acceso a sensores.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-window-maximize"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Desarrollo de Interfaces</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Diseño de interfaces de usuario, usabilidad, accesibilidad y generación de informes.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-network-wired"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">SMR</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Sistemas y Redes</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Montaje de equipos, sistemas operativos, redes locales y servicios en red.</p>
+          </article>
+
+          <article class="reveal group rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6 hover:border-brand-400 dark:hover:border-brand-600 hover:-translate-y-1 transition">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-xl"><i class="fa-solid fa-diagram-project"></i></div>
+            <span class="mt-4 inline-block text-xs font-semibold font-mono text-accent-500">DAM · DAW</span>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Proyecto Intermodular</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Tutorización de proyectos finales que integran los conocimientos del ciclo en un producto real.</p>
+          </article>
+        </div>
+
+        <!-- Bloque FCT / FP Dual — EDITA -->
+        <div class="reveal mt-12 rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 dark:from-brand-800 dark:to-slate-900 text-white p-8 sm:p-10 grid md:grid-cols-[auto_1fr] gap-6 items-start">
+          <div class="w-14 h-14 grid place-items-center rounded-2xl bg-white/15 text-2xl"><i class="fa-solid fa-handshake"></i></div>
+          <div>
+            <h3 class="text-2xl font-bold">Coordinación de estancias en empresa (FCT / FP Dual)</h3>
+            <p class="mt-3 text-brand-100 max-w-3xl">
+              Coordino las estancias de formación en empresa del alumnado y el seguimiento de la FP Dual,
+              trabajando codo con codo con el tejido empresarial de La Costera y comarcas vecinas.
+              Si tu empresa quiere acoger alumnado en prácticas, hablemos.
+            </p>
+            <ul class="mt-6 grid sm:grid-cols-3 gap-4 text-sm">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-building text-accent-400"></i> Convenios con empresas</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-user-check text-accent-400"></i> Seguimiento personalizado</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-briefcase text-accent-400"></i> Inserción laboral</li>
+            </ul>
+            <a href="#contacto" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-white text-brand-800 px-5 py-2.5 font-semibold hover:bg-brand-50 transition">
+              Colabora con nosotros <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. PROYECTOS ============ -->
+    <section id="proyectos" class="py-20 sm:py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <header class="max-w-2xl reveal">
+          <p class="font-mono text-sm text-brand-600 dark:text-brand-400">02 · Proyectos</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Innovación educativa</h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-400">Aplicaciones, herramientas y recursos que he creado para hacer el aula más interactiva.</p>
+        </header>
+
+        <!-- EDITA: proyectos y enlaces -->
+        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+          <article class="reveal flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden hover:shadow-xl hover:shadow-brand-600/10 transition">
+            <div class="h-32 bg-gradient-to-br from-brand-500 to-accent-500 grid place-items-center text-white text-4xl"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Juego de repaso de programación</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Aplicación web con retos y preguntas para repasar conceptos de Java de forma gamificada.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">JavaScript</span>
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">Gamificación</span>
+              </div>
+              <div class="mt-5 flex gap-4 text-sm font-semibold">
+                <a href="#" class="text-brand-600 dark:text-brand-400 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Demo</a>
+                <a href="#" class="text-slate-600 dark:text-slate-300 hover:underline"><i class="fa-brands fa-github mr-1"></i>Código</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden hover:shadow-xl hover:shadow-brand-600/10 transition">
+            <div class="h-32 bg-gradient-to-br from-indigo-500 to-brand-600 grid place-items-center text-white text-4xl"><i class="fa-solid fa-robot"></i></div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">IA en el aula de FP</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Guías y actividades para utilizar asistentes de IA de forma crítica y responsable en el desarrollo de software.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">IA</span>
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">Metodología</span>
+              </div>
+              <div class="mt-5 flex gap-4 text-sm font-semibold">
+                <a href="#" class="text-brand-600 dark:text-brand-400 hover:underline"><i class="fa-solid fa-book-open mr-1"></i>Materiales</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden hover:shadow-xl hover:shadow-brand-600/10 transition">
+            <div class="h-32 bg-gradient-to-br from-cyan-500 to-teal-500 grid place-items-center text-white text-4xl"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Plantillas de documentos docentes</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Plantillas unificadas para apuntes y prácticas con licencia abierta Creative Commons.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">REA</span>
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">CC BY-NC-SA</span>
+              </div>
+              <div class="mt-5 flex gap-4 text-sm font-semibold">
+                <a href="#" class="text-brand-600 dark:text-brand-400 hover:underline"><i class="fa-solid fa-download mr-1"></i>Descargar</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. RECURSOS ============ -->
+    <section id="recursos" class="py-20 sm:py-24 bg-white dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <header class="max-w-2xl reveal">
+          <p class="font-mono text-sm text-brand-600 dark:text-brand-400">03 · Alumnado</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Recursos para el alumnado</h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-400">Todo lo que necesitas para seguir el curso: enlaces, tutorías y consejos.</p>
+        </header>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+
+          <!-- EDITA: enlaces -->
+          <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6">
+            <h3 class="flex items-center gap-2 font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-link text-brand-500"></i> Enlaces útiles</h3>
+            <ul class="mt-4 space-y-1 text-sm">
+              <li><a href="#" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-solid fa-graduation-cap w-5 text-slate-400"></i> Aules / Moodle</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+              <li><a href="https://itaca.gva.es" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-solid fa-id-card w-5 text-slate-400"></i> Web Familia / ITACA</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+              <li><a href="https://dev.java/learn/" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-brands fa-java w-5 text-slate-400"></i> Documentación de Java</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+              <li><a href="https://git-scm.com/book/es/v2" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-brands fa-git-alt w-5 text-slate-400"></i> Libro de Git</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+              <li><a href="https://developer.mozilla.org/es/" target="_blank" rel="noopener" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-slate-800 transition"><span><i class="fa-brands fa-firefox-browser w-5 text-slate-400"></i> MDN Web Docs</span><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i></a></li>
+            </ul>
+          </div>
+
+          <!-- EDITA: horario de tutoría -->
+          <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6">
+            <h3 class="flex items-center gap-2 font-semibold text-slate-900 dark:text-white"><i class="fa-regular fa-clock text-brand-500"></i> Horario de tutoría</h3>
+            <dl class="mt-4 divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+              <div class="flex justify-between py-3"><dt class="text-slate-600 dark:text-slate-400">Lunes</dt><dd class="font-mono font-semibold">11:15 – 12:10</dd></div>
+              <div class="flex justify-between py-3"><dt class="text-slate-600 dark:text-slate-400">Miércoles</dt><dd class="font-mono font-semibold">13:05 – 14:00</dd></div>
+              <div class="flex justify-between py-3"><dt class="text-slate-600 dark:text-slate-400">Familias (cita previa)</dt><dd class="font-mono font-semibold">Jueves 16:00</dd></div>
+            </dl>
+            <p class="mt-4 text-xs text-slate-500 dark:text-slate-400"><i class="fa-solid fa-circle-info mr-1"></i> Pide cita por correo o por mensajería de Aules.</p>
+          </div>
+
+          <!-- EDITA: consejos -->
+          <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6">
+            <h3 class="flex items-center gap-2 font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-lightbulb text-brand-500"></i> Consejos de estudio</h3>
+            <ul class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex gap-3"><i class="fa-solid fa-keyboard text-accent-500 mt-1"></i> Programa cada día, aunque sean 20 minutos.</li>
+              <li class="flex gap-3"><i class="fa-solid fa-bug text-accent-500 mt-1"></i> Lee los errores con calma: te dicen exactamente qué pasa.</li>
+              <li class="flex gap-3"><i class="fa-brands fa-git-alt text-accent-500 mt-1"></i> Usa Git desde el primer día y haz commits pequeños.</li>
+              <li class="flex gap-3"><i class="fa-solid fa-users text-accent-500 mt-1"></i> Explica tu código a un compañero: es la mejor forma de aprender.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section id="contacto" class="py-20 sm:py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 sm:p-12 grid lg:grid-cols-2 gap-10">
+          <div>
+            <p class="font-mono text-sm text-brand-600 dark:text-brand-400">04 · Contacto</p>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">¿Hablamos?</h2>
+            <p class="mt-4 text-slate-600 dark:text-slate-400">Alumnado, familias, empresas u otros docentes: estaré encantado de responderte.</p>
+
+            <!-- EDITA: datos de contacto -->
+            <ul class="mt-8 space-y-4">
+              <li class="flex items-center gap-4">
+                <span class="w-11 h-11 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400"><i class="fa-solid fa-envelope"></i></span>
+                <a href="mailto:correu@exemple.com" class="font-medium hover:text-brand-600 dark:hover:text-brand-400">correu@exemple.com</a>
+              </li>
+              <li class="flex items-center gap-4">
+                <span class="w-11 h-11 grid place-items-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400"><i class="fa-solid fa-location-dot"></i></span>
+                <span class="font-medium">IES Dr. Lluís Simarro · Xàtiva (Valencia)</span>
+              </li>
+            </ul>
+          </div>
+
+          <form id="contact-form" class="space-y-4" novalidate>
+            <div>
+              <label for="nombre" class="block text-sm font-medium mb-1.5">Nombre</label>
+              <input id="nombre" name="nombre" type="text" required autocomplete="name"
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label for="asunto" class="block text-sm font-medium mb-1.5">Asunto</label>
+              <select id="asunto" name="asunto"
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option>Consulta de alumnado</option>
+                <option>Familia</option>
+                <option>Empresa (FCT / FP Dual)</option>
+                <option>Otros</option>
+              </select>
+            </div>
+            <div>
+              <label for="mensaje" class="block text-sm font-medium mb-1.5">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="4" required
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+            </div>
+            <p id="form-error" class="hidden text-sm text-red-600 dark:text-red-400" role="alert">Rellena el nombre y el mensaje, por favor.</p>
+            <button type="submit" class="w-full inline-flex justify-center items-center gap-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 font-semibold transition">
+              <i class="fa-solid fa-paper-plane"></i> Enviar mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 6. FOOTER ============ -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 py-12 grid gap-10 md:grid-cols-3">
+      <div>
+        <h3 class="font-semibold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-solid fa-school text-brand-500"></i> IES Dr. Lluís Simarro</h3>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Centro público de ESO, Bachillerato y Formación Profesional de la Conselleria de Educación.<br>Xàtiva (Valencia)</p>
+        <!-- EDITA: URL de la web del centro -->
+        <a href="#" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline">Web del centro <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+      </div>
+
+      <!-- EDITA: redes -->
+      <div>
+        <h3 class="font-semibold text-slate-900 dark:text-white">Redes profesionales</h3>
+        <div class="mt-3 flex gap-3">
+          <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-11 h-11 grid place-items-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:text-brand-600 hover:border-brand-500 transition"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" target="_blank" rel="noopener" aria-label="GitHub" class="w-11 h-11 grid place-items-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:text-brand-600 hover:border-brand-500 transition"><i class="fa-brands fa-github"></i></a>
+          <a href="mailto:correu@exemple.com" aria-label="Correo electrónico" class="w-11 h-11 grid place-items-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:text-brand-600 hover:border-brand-500 transition"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-slate-900 dark:text-white">Licencia</h3>
+        <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">
+          <i class="fa-brands fa-creative-commons"></i> <i class="fa-brands fa-creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc-eu"></i> <i class="fa-brands fa-creative-commons-sa"></i><br>
+          Los contenidos de esta web se publican bajo licencia
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener" class="text-brand-600 dark:text-brand-400 hover:underline">CC BY-NC-SA 4.0</a>.
+        </p>
+        <a href="#" class="mt-2 inline-block text-sm text-slate-600 dark:text-slate-400 hover:underline">Aviso legal y privacidad</a>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 dark:border-slate-800 py-5 text-center text-xs text-slate-500">
+      © <span id="any"></span> Enric Giménez · Hecho con <i class="fa-solid fa-heart text-red-500"></i> y mucho código
+    </div>
+  </footer>
+
+  <a href="#inicio" id="to-top" aria-label="Volver arriba"
+     class="fixed bottom-5 right-5 z-40 w-11 h-11 grid place-items-center rounded-full bg-brand-600 text-white shadow-lg opacity-0 pointer-events-none transition">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+  <script>
+    // EDITA: correo donde llegarán los mensajes del formulario
+    const CORREO_CONTACTO = 'correu@exemple.com';
+
+    document.getElementById('any').textContent = new Date().getFullYear();
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const dark = document.documentElement.classList.toggle('dark');
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    });
+
+    const menuBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const setMenu = (open) => {
+      mobileMenu.classList.toggle('hidden', !open);
+      menuBtn.setAttribute('aria-expanded', open);
+      menuBtn.innerHTML = open ? '<i class="fa-solid fa-xmark text-lg"></i>' : '<i class="fa-solid fa-bars text-lg"></i>';
+    };
+    menuBtn.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+    const navbar = document.getElementById('navbar');
+    const toTop = document.getElementById('to-top');
+    const onScroll = () => {
+      const scrolled = window.scrollY > 20;
+      navbar.classList.toggle('bg-white/85', scrolled);
+      navbar.classList.toggle('dark:bg-slate-950/85', scrolled);
+      navbar.classList.toggle('backdrop-blur', scrolled);
+      navbar.classList.toggle('shadow-sm', scrolled);
+      const show = window.scrollY > 600;
+      toTop.classList.toggle('opacity-0', !show);
+      toTop.classList.toggle('pointer-events-none', !show);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const links = document.querySelectorAll('.nav-link');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('main section[id]').forEach(s => sectionObserver.observe(s));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const asunto = document.getElementById('asunto').value;
+      const mensaje = document.getElementById('mensaje').value.trim();
+      const error = document.getElementById('form-error');
+      if (!nombre || !mensaje) { error.classList.remove('hidden'); return; }
+      error.classList.add('hidden');
+      const subject = encodeURIComponent(`[Web] ${asunto} — ${nombre}`);
+      const body = encodeURIComponent(`${mensaje}\n\n— ${nombre}`);
+      window.location.href = `mailto:${CORREO_CONTACTO}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>

@@ -19,6 +19,15 @@
   <title>Enric Giménez · Professor d'Informàtica</title>
   <meta name="description" content="Pàgina personal d'Enric Giménez, professor de cicles formatius de la família d'Informàtica i Comunicacions a l'IES Dr. Lluís Simarro de Xàtiva.">
 
+  <!-- Favicon (logo EG) -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Versions en altres idiomes -->
+  <link rel="alternate" hreflang="ca" href="./">
+  <link rel="alternate" hreflang="es" href="es/">
+
   <!-- Tipografies: Inter (text) i JetBrains Mono (detalls tecnològics) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,6 +129,11 @@
       </ul>
 
       <div class="flex items-center gap-2">
+        <!-- Selector d'idioma: CA (actual) / ES -->
+        <div class="flex items-center rounded-lg border border-slate-300 dark:border-slate-700 text-xs font-semibold overflow-hidden" role="group" aria-label="Idioma">
+          <span class="px-2.5 py-1.5 bg-brand-600 text-white" aria-current="true">CA</span>
+          <a href="es/" hreflang="es" lang="es" class="px-2.5 py-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition" title="Versión en castellano">ES</a>
+        </div>
         <!-- Botó canvi de tema clar/fosc -->
         <button id="theme-toggle" type="button" aria-label="Canvia entre tema clar i fosc"
           class="w-10 h-10 grid place-items-center rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition">
